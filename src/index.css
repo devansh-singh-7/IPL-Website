@@ -1,0 +1,174 @@
+@import "tailwindcss";
+
+/* =====================================
+   Brand tokens (single source of truth)
+   ===================================== */
+:root {
+  --primary-600: #dc2626; /* red */
+  --primary-700: #b91c1c;
+  --primary-800: #991b1b;
+  --surface: #ffffff;
+  --text-900: #111827; /* gray-900 */
+  --text-800: #1f2937; /* gray-800 */
+  --text-700: #374151; /* gray-700 */
+  --text-600: #4b5563; /* gray-600 */
+  --muted-50: #f9fafb;  /* gray-50 */
+  --muted-100: #f3f4f6; /* gray-100 */
+}
+
+/* =====================================
+   Base & Typography
+   ===================================== */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-800);
+  background: var(--surface);
+}
+
+h1, h2, h3, h4, h5, h6 { color: var(--text-900); }
+
+/* Minimal prose fallback (typography plugin not used) */
+.prose { color: var(--text-800); line-height: 1.75; }
+.prose h2, .prose h3 { color: var(--text-900); margin-top: 1.25rem; margin-bottom: 0.75rem; }
+.prose p { margin: 0.75rem 0; }
+.prose ul { padding-left: 1.25rem; list-style: disc; }
+.prose li { margin: 0.25rem 0; }
+.prose a { color: var(--primary-600); text-decoration: underline; }
+
+/* =====================================
+   Components (no Tailwind overrides)
+   ===================================== */
+.card {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+.card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.btn-primary, .btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 600;
+  color: #fff; border: none; cursor: pointer; text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
+}
+.btn-primary { background-color: var(--primary-600); }
+.btn-primary:hover { background-color: var(--primary-700); transform: translateY(-1px); }
+.btn-primary:active { transform: scale(0.98); }
+
+.btn-secondary { background-color: var(--primary-700); }
+.btn-secondary:hover { background-color: var(--primary-800); transform: translateY(-1px); }
+.btn-secondary:active { transform: scale(0.98); }
+
+.section-title { font-size: 1.875rem; font-weight: 700; color: var(--text-900); line-height: 1.2; margin-bottom: 1rem; }
+.section-subtitle { font-size: 1.125rem; color: var(--text-600); max-width: 42rem; margin-left: auto; margin-right: auto; }
+
+.hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.hover-lift:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.15); }
+.hover-scale { transition: transform 0.3s ease; }
+.hover-scale:hover { transform: scale(1.05); }
+
+/* =====================================
+   Animations
+   ===================================== */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+@keyframes float { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-10px);} }
+@keyframes pulse-slow { 0%,100%{ opacity: 1;} 50%{ opacity: 0.8;} }
+@keyframes bounce-subtle { 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-5px);} }
+
+.animate-fadeIn { animation: fadeIn 0.6s ease-out forwards; }
+.animate-slideInLeft { animation: slideInLeft 0.6s ease-out forwards; }
+.animate-slideInRight { animation: slideInRight 0.6s ease-out forwards; }
+.animate-scaleIn { animation: scaleIn 0.6s ease-out forwards; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-pulse-slow { animation: pulse-slow 2s ease-in-out infinite; }
+.animate-bounce-subtle { animation: bounce-subtle 2s ease-in-out infinite; }
+
+/* =====================================
+   Gradients & Effects
+   ===================================== */
+.bg-gradient-primary { background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%); }
+.bg-gradient-secondary { background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%); }
+.bg-gradient-hero { background: linear-gradient(135deg, rgba(220,38,38,0.95) 0%, rgba(234,88,12,0.95) 100%); }
+
+/* Support both syntaxes: provide aliases for bg-linear-to-* used in markup */
+.bg-linear-to-r { background-image: linear-gradient(to right, var(--tw-gradient-from, var(--primary-600)), var(--tw-gradient-to, var(--primary-700))); }
+.bg-linear-to-br { background-image: linear-gradient(to bottom right, var(--tw-gradient-from, var(--primary-600)), var(--tw-gradient-to, var(--primary-700))); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 12px; height: 12px; }
+::-webkit-scrollbar-track { background: var(--muted-100); }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--primary-600) 0%, var(--primary-700) 100%); border-radius: 6px; border: 2px solid var(--muted-100); }
+::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, var(--primary-700) 0%, var(--primary-800) 100%); }
+
+/* Selection & Focus */
+::selection { background-color: var(--primary-600); color: #fff; }
+::-moz-selection { background-color: var(--primary-600); color: #fff; }
+*:focus-visible { outline: 2px solid var(--primary-600); outline-offset: 2px; }
+
+/* Responsive type tweaks */
+@media (min-width: 768px) { .section-title { font-size: 2.25rem; } }
+@media (max-width: 640px) { .section-title { font-size: 1.5rem; } .section-subtitle { font-size: 1rem; } }
+
+/* Utilities */
+@keyframes spin { 0%{transform: rotate(0deg);} 100%{transform: rotate(360deg);} }
+.loading-spinner { width: 40px; height: 40px; border: 3px solid #f3f3f3; border-top: 3px solid var(--primary-600); border-radius: 50%; animation: spin 1s linear infinite; }
+.glass-effect { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* =====================================
+   Header nav/link utilities (explicit hover control)
+   ===================================== */
+.nav-link { 
+  position: relative; 
+  border-radius: 0.5rem; 
+  background-color: transparent !important; 
+  box-shadow: none !important; 
+  transition: all 0.3s ease;
+}
+
+/* Simple single-color hover for all nav links */
+.nav-link:hover { 
+  background-color: var(--primary-700) !important; 
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.2) !important;
+}
+
+/* Language toggle explicit hover palette */
+.lang-toggle:hover {
+  background-color: var(--primary-700) !important;
+  color: #fff !important;
+  border-color: var(--primary-800) !important;
+}
+
+/* =====================================
+   Buttons
+   ===================================== */
+.btn-outline-primary {
+  background-color: #fff !important;
+  color: var(--primary-600) !important;
+  border: 2px solid var(--primary-600) !important;
+  border-radius: 0.5rem; /* rounded-lg */
+  font-weight: 600; /* font-semibold */
+  transition: all .3s ease !important;
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06) !important; /* shadow-sm */
+}
+.btn-outline-primary:hover {
+  background-color: var(--primary-700) !important;
+  color: #fff !important;
+  border-color: var(--primary-800) !important;
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05) !important; /* hover:shadow-lg */
+  transform: translateY(-2px) !important;
+}
