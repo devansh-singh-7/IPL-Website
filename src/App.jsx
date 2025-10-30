@@ -10,15 +10,14 @@ import NewsEvents from './pages/NewsEvents'
 import FriendshipMeet from './pages/FriendshipMeet'
 import FriendsDay from './pages/FriendsDay'
 import Contact from './pages/Contact'
-import './App.css'
 
 const App = () => {
   return (
     <TranslationProvider>
       <Router>
-        <div className="min-h-screen flex flex-col bg-page">
+        <div className="min-h-screen flex flex-col">
           <Header />
-          <main className="grow bg-page">
+          <main className="grow">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />

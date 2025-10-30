@@ -26,16 +26,16 @@ const Header = () => {
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4 flex-1 md:flex-initial">
           <Link 
             to="/" 
-            className="text-primary-700 font-extrabold text-2xl leading-none hover:text-primary-800 transition-colors duration-200"
+            className="text-primary-700 font-extrabold text-lg sm:text-xl md:text-2xl leading-none hover:text-primary-800 transition-colors duration-200 truncate"
           >
             {t('home.hero_title', "Indian Penpals' League")}
           </Link>
           
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-1 ml-8">
+          <nav className="hidden lg:flex items-center gap-1 ml-4 xl:ml-8">
             {navLinks.map((link, index) => (
               <Link
                 key={link.path}
@@ -67,7 +67,7 @@ const Header = () => {
           </nav>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           {/* Desktop Search */}
           <form
             onSubmit={(e) => {
@@ -78,7 +78,7 @@ const Header = () => {
                 setMobileMenuOpen(false)
               }
             }}
-            className="hidden md:flex items-center group relative"
+            className="hidden lg:flex items-center group relative"
           >
             <Search className="absolute left-3 w-4 h-4 text-gray-400 group-focus-within:text-primary-600 transition-colors" />
             <input
@@ -87,7 +87,7 @@ const Header = () => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={t('header.search_placeholder', 'Search...')}
-              className="w-40 focus:w-64 pl-9 pr-3 py-2 rounded-lg bg-gray-50 border border-gray-200 text-sm text-gray-700 outline-none transition-all duration-300 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-200 shadow-sm focus:shadow-md"
+              className="w-32 focus:w-48 xl:w-40 xl:focus:w-64 pl-9 pr-3 py-2 rounded-lg bg-gray-50 border border-gray-200 text-sm text-gray-700 outline-none transition-all duration-300 focus:bg-white focus:border-primary-500 focus:ring-2 focus:ring-primary-200 shadow-sm focus:shadow-md"
             />
           </form>
 
@@ -98,8 +98,8 @@ const Header = () => {
             onClick={toggleLanguage}
             className="
               lang-toggle relative overflow-hidden
-              px-4 py-2 rounded-lg border-2 border-primary-600 bg-white text-primary-600
-              font-bold text-sm shadow-sm
+              px-3 sm:px-4 py-2 rounded-lg border-2 border-primary-600 bg-white text-primary-600
+              font-bold text-xs sm:text-sm shadow-sm
               hover:bg-primary-700 hover:text-white hover:shadow-lg hover:border-primary-800
               active:scale-95
               transition-all duration-300
@@ -117,10 +117,10 @@ const Header = () => {
           {/* Mobile menu toggle */}
           <button 
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 transition-colors"
+            className="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 transition-colors"
             aria-label="Toggle mobile menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
           </button>
         </div>
       </div>
@@ -128,8 +128,8 @@ const Header = () => {
       {/* Mobile Navigation Menu */}
       <div 
         className={`
-          md:hidden overflow-hidden transition-all duration-300 ease-in-out
-          ${mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}
+          lg:hidden overflow-hidden transition-all duration-300 ease-in-out
+          ${mobileMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}
         `}
       >
         <div className="container mx-auto px-4 pb-3 pt-2">
