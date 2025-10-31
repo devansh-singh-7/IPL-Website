@@ -10,6 +10,7 @@ import NewsEvents from './pages/NewsEvents'
 import FriendshipMeet from './pages/FriendshipMeet'
 import FriendsDay from './pages/FriendsDay'
 import Contact from './pages/Contact'
+import OurTeam from './pages/OurTeam'
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
               <Route path="/news-events" element={<NewsEvents />} />
               <Route path="/friendship-meet" element={<FriendshipMeet />} />
               <Route path="/friends-day" element={<FriendsDay />} />
+              <Route path="/our-team" element={<OurTeam />} />
               <Route path="/contact" element={<Contact />} />
             </Routes>
           </main>

@@ -1,0 +1,162 @@
+{
+  "states": [
+    {
+      "name": "Tamil Nadu",
+      "districts": [
+        { "name": "Virudhunagar", "years": [
+          { "year": 2004, "entries": [] },
+          { "year": 2005, "entries": [] },
+          { "year": 2006, "entries": [] },
+          { "year": 2007, "entries": [] },
+          { "year": 2009, "entries": [] },
+          { "year": 2010, "entries": [] },
+          { "year": 2012, "entries": [] },
+          { "year": 2017, "entries": [] },
+          { "year": 2021, "entries": [] },
+          { "year": 2022, "entries": [] },
+          { "year": 2023, "entries": [] }
+        ]},
+        { "name": "Madurai", "years": [
+          { "year": 2004, "entries": [] },
+          { "year": 2005, "entries": [] },
+          { "year": 2006, "entries": [] },
+          { "year": 2007, "entries": [] },
+          { "year": 2009, "entries": [] },
+          { "year": 2010, "entries": [] },
+          { "year": 2012, "entries": [] },
+          { "year": 2017, "entries": [] },
+          { "year": 2021, "entries": [] },
+          { "year": 2022, "entries": [] },
+          { "year": 2023, "entries": [] }
+        ]},
+        { "name": "Thenkasi", "years": [
+          { "year": 2004, "entries": [] },
+          { "year": 2005, "entries": [] },
+          { "year": 2006, "entries": [] },
+          { "year": 2007, "entries": [] },
+          { "year": 2009, "entries": [] },
+          { "year": 2010, "entries": [] },
+          { "year": 2012, "entries": [] },
+          { "year": 2017, "entries": [] },
+          { "year": 2021, "entries": [] },
+          { "year": 2022, "entries": [] },
+          { "year": 2023, "entries": [] }
+        ]},
+        { "name": "Kanya Kumari", "years": [
+          { "year": 2004, "entries": [] },
+          { "year": 2005, "entries": [] },
+          { "year": 2006, "entries": [] },
+          { "year": 2007, "entries": [] },
+          { "year": 2009, "entries": [] },
+          { "year": 2010, "entries": [] },
+          { "year": 2012, "entries": [] },
+          { "year": 2017, "entries": [] },
+          { "year": 2021, "entries": [] },
+          { "year": 2022, "entries": [] },
+          { "year": 2023, "entries": [] }
+        ]},
+        { "name": "Coimbatore", "years": [
+          { "year": 2004, "entries": [] },
+          { "year": 2005, "entries": [] },
+          { "year": 2006, "entries": [] },
+          { "year": 2007, "entries": [] },
+          { "year": 2009, "entries": [] },
+          { "year": 2010, "entries": [] },
+          { "year": 2012, "entries": [] },
+          { "year": 2017, "entries": [] },
+          { "year": 2021, "entries": [] },
+          { "year": 2022, "entries": [] },
+          { "year": 2023, "entries": [] }
+        ]},
+        { "name": "Thirunelveli", "years": [
+          { "year": 2004, "entries": [] },
+          { "year": 2005, "entries": [] },
+          { "year": 2006, "entries": [] },
+          { "year": 2007, "entries": [] },
+          { "year": 2009, "entries": [] },
+          { "year": 2010, "entries": [] },
+          { "year": 2012, "entries": [] },
+          { "year": 2017, "entries": [] },
+          { "year": 2021, "entries": [] },
+          { "year": 2022, "entries": [] },
+          { "year": 2023, "entries": [] }
+        ]},
+        { "name": "Chennai", "years": [
+          { "year": 2004, "entries": [] },
+          { "year": 2005, "entries": [] },
+          { "year": 2006, "entries": [] },
+          { "year": 2007, "entries": [] },
+          { "year": 2009, "entries": [] },
+          { "year": 2010, "entries": [] },
+          { "year": 2012, "entries": [] },
+          { "year": 2017, "entries": [] },
+          { "year": 2021, "entries": [] },
+          { "year": 2022, "entries": [] },
+          { "year": 2023, "entries": [] }
+        ]},
+        { "name": "Trichy", "years": [
+          { "year": 2004, "entries": [] },
+          { "year": 2005, "entries": [] },
+          { "year": 2006, "entries": [] },
+          { "year": 2007, "entries": [] },
+          { "year": 2009, "entries": [] },
+          { "year": 2010, "entries": [] },
+          { "year": 2012, "entries": [] },
+          { "year": 2017, "entries": [] },
+          { "year": 2021, "entries": [] },
+          { "year": 2022, "entries": [] },
+          { "year": 2023, "entries": [] }
+        ]},
+        { "name": "Krishnagiri", "years": [
+          { "year": 2004, "entries": [] },
+          { "year": 2005, "entries": [] },
+          { "year": 2006, "entries": [] },
+          { "year": 2007, "entries": [] },
+          { "year": 2009, "entries": [] },
+          { "year": 2010, "entries": [] },
+          { "year": 2012, "entries": [] },
+          { "year": 2017, "entries": [] },
+          { "year": 2021, "entries": [] },
+          { "year": 2022, "entries": [] },
+          { "year": 2023, "entries": [] }
+        ]}
+      ]
+    },
+    {
+      "name": "Maharashtra",
+      "districts": [
+        { "name": "Mumbai", "years": [
+          { "year": 2004, "entries": [] },
+          { "year": 2005, "entries": [] },
+          { "year": 2006, "entries": [] },
+          { "year": 2007, "entries": [] },
+          { "year": 2009, "entries": [] },
+          { "year": 2010, "entries": [] },
+          { "year": 2012, "entries": [] },
+          { "year": 2017, "entries": [] },
+          { "year": 2021, "entries": [] },
+          { "year": 2022, "entries": [] },
+          { "year": 2023, "entries": [] }
+        ]}
+      ]
+    },
+    {
+      "name": "New Delhi",
+      "districts": [
+        { "name": "New Delhi", "years": [
+          { "year": 2004, "entries": [] },
+          { "year": 2005, "entries": [] },
+          { "year": 2006, "entries": [] },
+          { "year": 2007, "entries": [] },
+          { "year": 2009, "entries": [] },
+          { "year": 2010, "entries": [] },
+          { "year": 2012, "entries": [] },
+          { "year": 2017, "entries": [] },
+          { "year": 2021, "entries": [] },
+          { "year": 2022, "entries": [] },
+          { "year": 2023, "entries": [] }
+        ]}
+      ]
+    }
+  ]
+}

@@ -1,27 +1,42 @@
 import React, { useState, useRef } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from '../contexts/TranslationContext'
-import { Menu, X, Search } from 'lucide-react'
+import { Menu, X, Search, ChevronDown } from 'lucide-react'
 
 const Header = () => {
   const { lang, toggleLanguage, t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [newsDropdownOpen, setNewsDropdownOpen] = useState(false)
   const [query, setQuery] = useState('')
   const desktopSearchRef = useRef(null)
 
   const navLinks = [
     { path: '/', label: 'nav.home' },
     { path: '/about', label: 'nav.about' },
+    { path: '/our-team', label: 'nav.team' },
     { path: '/humanitarian-services', label: 'nav.humanitarian' },
-    { path: '/news-events', label: 'nav.news' },
-    { path: '/friendship-meet', label: 'nav.meet' },
-    { path: '/friends-day', label: 'nav.friendsDay' },
+    { 
+      path: '/news-events', 
+      label: 'nav.news',
+      hasDropdown: true,
+      dropdownItems: [
+        { path: '/news-events', label: 'IPL News' },
+        { path: '/friendship-meet', label: 'nav.meet' },
+        { path: '/friends-day', label: 'nav.friendsDay' },
+      ]
+    },
     { path: '/contact', label: 'nav.contact' },
   ]
 
   const isActive = (path) => location.pathname === path
+  
+  const isNewsActive = () => {
+    return location.pathname === '/news-events' || 
+           location.pathname === '/friendship-meet' || 
+           location.pathname === '/friends-day'
+  }
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
@@ -35,34 +50,94 @@ const Header = () => {
           </Link>
           
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1 ml-4 xl:ml-8">
+          <nav className="hidden lg:flex items-center gap-1 ml-8">
             {navLinks.map((link, index) => (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`
-                  nav-link relative px-3 py-2 text-sm font-medium leading-none rounded-lg
-                  ${isActive(link.path)
-                    ? 'text-primary-700'
-                    : 'text-gray-700'}
-                  group
-                  hover:scale-105 hover:-translate-y-0.5
-                  active:scale-95
-                `}
-              >
-                <span className="relative z-10">{t(link.label)}</span>
-                
-                {/* Animated underline for active state */}
-                <span 
-                  className={`
-                    absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-linear-to-r from-primary-500 to-primary-600 transition-all duration-300 rounded-full
-                    ${isActive(link.path) 
-                      ? 'w-3/4' 
-                      : 'w-0'}
-                  `}
-                />
+              link.hasDropdown ? (
+                <div 
+                  key={link.path}
+                  className="relative"
+                  onMouseEnter={() => setNewsDropdownOpen(true)}
+                  onMouseLeave={() => setNewsDropdownOpen(false)}
+                >
+                  <button
+                    className={`
+                      nav-link relative px-3 py-2 text-sm font-medium leading-none rounded-lg flex items-center gap-1
+                      ${isNewsActive()
+                        ? 'text-primary-700'
+                        : 'text-gray-700'}
+                      group
+                      hover:scale-105 hover:-translate-y-0.5
+                      active:scale-95
+                      transition-all duration-200
+                    `}
+                  >
+                    <span className="relative z-10">{t(link.label)}</span>
+                    <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${newsDropdownOpen ? 'rotate-180' : ''}`} />
+                    
+                    {/* Animated underline for active state */}
+                    <span 
+                      className={`
+                        absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-linear-to-r from-primary-500 to-primary-600 transition-all duration-300 rounded-full
+                        ${isNewsActive() 
+                          ? 'w-3/4' 
+                          : 'w-0'}
+                      `}
+                    />
+                  </button>
 
-              </Link>
+                  {/* Dropdown Menu */}
+                  <div 
+                    className={`
+                      absolute top-full left-0 mt-1 w-48 bg-gray-800 rounded-lg shadow-xl overflow-hidden
+                      transition-all duration-200 origin-top
+                      ${newsDropdownOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}
+                    `}
+                  >
+                    {link.dropdownItems.map((item) => (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className={`
+                          block px-4 py-3 text-sm font-medium
+                          ${isActive(item.path)
+                            ? 'bg-primary-600 text-white'
+                            : 'text-white hover:bg-gray-700'}
+                          transition-colors duration-150
+                        `}
+                        onClick={() => setNewsDropdownOpen(false)}
+                      >
+                        {item.label.startsWith('nav.') ? t(item.label) : item.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  className={`
+                    nav-link relative px-3 py-2 text-sm font-medium leading-none rounded-lg
+                    ${isActive(link.path)
+                      ? 'text-primary-700'
+                      : 'text-gray-700'}
+                    group
+                    hover:scale-105 hover:-translate-y-0.5
+                    active:scale-95
+                  `}
+                >
+                  <span className="relative z-10">{t(link.label)}</span>
+                  
+                  {/* Animated underline for active state */}
+                  <span 
+                    className={`
+                      absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-linear-to-r from-primary-500 to-primary-600 transition-all duration-300 rounded-full
+                      ${isActive(link.path) 
+                        ? 'w-3/4' 
+                        : 'w-0'}
+                    `}
+                  />
+                </Link>
+              )
             ))}
           </nav>
         </div>
@@ -159,25 +234,50 @@ const Header = () => {
         </div>
         <nav className="container mx-auto px-4 pb-4 space-y-1">
           {navLinks.map((link, index) => (
-            <Link
-              key={link.path}
-              to={link.path}
-              onClick={() => setMobileMenuOpen(false)}
-              className={`
-                block px-4 py-3 rounded-lg text-sm font-medium
-                transition-all duration-300
-                ${isActive(link.path)
-                  ? 'bg-primary-600 text-white shadow-md'
-                  : 'bg-gray-50 text-gray-700 hover:bg-primary-50 hover:text-primary-600 hover:translate-x-2'
-                }
-              `}
-              style={{ 
-                animationDelay: `${index * 50}ms`,
-                animation: mobileMenuOpen ? 'slideInLeft 0.3s ease-out forwards' : 'none'
-              }}
-            >
-              {t(link.label)}
-            </Link>
+            link.hasDropdown ? (
+              <div key={link.path} className="space-y-1">
+                <div className="px-4 py-2 text-xs font-bold text-gray-500 uppercase tracking-wider">
+                  {t(link.label)}
+                </div>
+                {link.dropdownItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`
+                      block px-4 py-3 rounded-lg text-sm font-medium ml-4
+                      transition-all duration-300
+                      ${isActive(item.path)
+                        ? 'bg-primary-600 text-white shadow-md'
+                        : 'bg-gray-50 text-gray-700 hover:bg-primary-50 hover:text-primary-600 hover:translate-x-2'
+                      }
+                    `}
+                  >
+                    {item.label.startsWith('nav.') ? t(item.label) : item.label}
+                  </Link>
+                ))}
+              </div>
+            ) : (
+              <Link
+                key={link.path}
+                to={link.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`
+                  block px-4 py-3 rounded-lg text-sm font-medium
+                  transition-all duration-300
+                  ${isActive(link.path)
+                    ? 'bg-primary-600 text-white shadow-md'
+                    : 'bg-gray-50 text-gray-700 hover:bg-primary-50 hover:text-primary-600 hover:translate-x-2'
+                  }
+                `}
+                style={{ 
+                  animationDelay: `${index * 50}ms`,
+                  animation: mobileMenuOpen ? 'slideInLeft 0.3s ease-out forwards' : 'none'
+                }}
+              >
+                {t(link.label)}
+              </Link>
+            )
           ))}
         </nav>
       </div>

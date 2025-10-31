@@ -148,7 +148,8 @@ const Contact = () => {
 
                   <button
                     type="submit"
-                    className="w-full bg-primary-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-primary-700 transition-colors duration-300 shadow-md hover:shadow-lg"
+                    className="w-full bg-[#dc2626] text-white py-4 px-6 rounded-lg font-bold text-lg hover:bg-[#b91c1c] transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#dc2626]"
+                    style={{ backgroundColor: '#dc2626' }}
                   >
                     {t('contact.form_submit', 'Send Message')}
                   </button>
@@ -179,12 +180,11 @@ const Contact = () => {
                   {t('contact.office_address', 'Our Office')}
                 </h3>
                 <div className="space-y-3 text-gray-700">
-                  <p className="font-semibold text-primary-600">Indian Penpals' League</p>
+                  <p className="font-semibold text-primary-600">{t('brand.name', "Indian Penpals' League")}</p>
                   <p className="leading-relaxed">
-                    103, Starview Apts.,<br />
-                    Opp. Corporate Park,<br />
-                    V.N.Purav Marg, Chembur,<br />
-                    Mumbai - 400071, India
+                    {t('footer.address', `103, Starview Apts., Opp. Corporate Park,\nV.N.Purav Marg, Chembur,\nMumbai - 400071, India`).split('\n').map((line, i) => (
+                      <React.Fragment key={i}>{line}{i < 2 && <br />}</React.Fragment>
+                    ))}
                   </p>
                   <div className="pt-4 border-t border-gray-200">
                     <p className="text-sm text-gray-600 mb-2">
@@ -195,7 +195,7 @@ const Contact = () => {
                     href="https://www.google.com/maps/search/?api=1&query=103+Starview+Apartments+Chembur+Mumbai+400071"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block mt-4 px-6 py-3 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors shadow-md hover:shadow-lg"
+                    className="inline-block mt-4 px-6 py-3 bg-primary-500 text-white rounded-lg font-semibold hover:bg-primary-600 transition-all duration-200 shadow-lg hover:shadow-xl hover:scale-105"
                   >
                     {t('contact.open_in_maps', 'Open in Google Maps')}
                   </a>
