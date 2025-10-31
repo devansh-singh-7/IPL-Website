@@ -16,6 +16,14 @@ export const TranslationProvider = ({ children }) => {
     try {
       localStorage.setItem('ipl_lang', lang)
     } catch (e) {}
+    try {
+      // Reflect language on the <html> element for language-specific CSS overrides
+      if (typeof document !== 'undefined') {
+        const el = document.documentElement
+        el.setAttribute('lang', lang)
+        el.classList.toggle('lang-ta', lang === 'ta')
+      }
+    } catch (e) {}
   }, [lang])
 
   const t = (key, fallback) => {

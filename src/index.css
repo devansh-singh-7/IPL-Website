@@ -148,13 +148,16 @@ h1, h2, h3, h4, h5, h6 { color: var(--text-900); }
 
 /* Unified year bubbles */
 .timeline-year {
-  width: 3.5rem; /* 14 */
-  height: 3.5rem;
+  width: 4.25rem; /* bigger bubble */
+  height: 4.25rem;
   border-radius: 9999px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
+  font-size: 1.125rem; /* ensure readable numerals */
+  line-height: 1; /* center text vertically */
+  white-space: nowrap; /* keep years on one line */
   color: #fff;
 }
 .timeline-year--neutral {
@@ -164,6 +167,32 @@ h1, h2, h3, h4, h5, h6 { color: var(--text-900); }
 .timeline-year--primary {
   background: var(--primary-600);
   box-shadow: 0 0 0 6px rgba(220, 38, 38, 0.12);
+}
+
+/* Wide year pill for ranges like 1995-2000 or 2000+ */
+.timeline-year--wide {
+  width: auto !important;           /* allow content width */
+  min-width: 3.5rem;                /* keep minimum size */
+  height: 3.25rem;                  /* slightly slimmer height for pill */
+  padding: 0 0.75rem;               /* horizontal breathing room */
+  font-size: 1rem;                  /* slightly smaller to fit long labels */
+  border-radius: 9999px;            /* pill shape */
+}
+
+@media (min-width: 768px) {
+  .timeline-year--wide {
+    height: 3.5rem;
+    padding: 0 1rem;
+    font-size: 1.125rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .timeline-year {
+    width: 4.75rem;
+    height: 4.75rem;
+    font-size: 1.25rem;
+  }
 }
 
 /* =====================================
@@ -198,6 +227,29 @@ h1, h2, h3, h4, h5, h6 { color: var(--text-900); }
 .glass-effect { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border-width: 0; }
 img { max-width: 100%; height: auto; display: block; }
+
+/* =====================================
+   Language-specific typographic tweaks
+   ===================================== */
+/* When Tamil is active, reduce excessive letter spacing and tighten leading */
+html[lang="ta"] body {
+  /* Prefer Tamil-friendly fonts when available */
+  font-family: 'Noto Sans Tamil', Latha, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+/* Disable aggressive uppercase styling impact for Tamil context */
+html[lang="ta"] .uppercase { text-transform: none !important; }
+/* Normalize tracking utilities which over-space complex scripts */
+html[lang="ta"] .tracking-widest,
+html[lang="ta"] .tracking-wider,
+html[lang="ta"] .tracking-wide { letter-spacing: 0.01em !important; }
+/* Slightly tighten relaxed/loose line-heights commonly used in body copy */
+html[lang="ta"] .leading-relaxed { line-height: 1.5 !important; }
+html[lang="ta"] .leading-loose { line-height: 1.6 !important; }
+/* Subtle tweaks for shared helpers */
+html[lang="ta"] .section-title { letter-spacing: 0 !important; }
+html[lang="ta"] .section-subtitle { line-height: 1.4 !important; }
+/* Improve wrapping of long strings like emails or unbroken words */
+html[lang="ta"] .wrap-break-word { word-break: break-word; overflow-wrap: anywhere; hyphens: auto; }
 
 /* =====================================
    Scrollbar Utilities

@@ -163,12 +163,10 @@ const FriendsDay = () => {
                   {/* 1993 - left side on md+, stacked on mobile */}
                   <div className="relative md:flex md:items-start">
                     {/* Year marker (center) */}
-                    <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 -top-2 timeline-year timeline-year--neutral animate-bounce-subtle">1993</div>
+                    <div className={`hidden md:flex absolute left-1/2 -translate-x-1/2 -top-2 timeline-year ${(/[-+]/.test('1993') && '1993'.length > 4) ? 'timeline-year--wide ' : ''}timeline-year--neutral animate-bounce-subtle`}>1993</div>
 
                     {/* Card container */}
                     <div className="md:w-1/2 md:pr-10">
-                      {/* Mobile year badge */}
-                      <div className="md:hidden mb-3 inline-flex items-center justify-center timeline-year timeline-year--neutral animate-bounce-subtle" style={{ width: '3rem', height: '3rem' }}>1993</div>
                       <div className="bg-white rounded-lg p-6 shadow-md animate-slideInLeft" style={{animationDelay:'0.05s'}}>
                         <h3 className="text-xl font-bold text-gray-800 mb-2">March 12, 1993 - A Day of Darkness</h3>
                         <p className="text-gray-700 leading-relaxed">
@@ -187,12 +185,10 @@ const FriendsDay = () => {
                     <div className="hidden md:block md:w-1/2" />
 
                     {/* Year marker (center) */}
-                    <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 -top-2 timeline-year timeline-year--primary animate-bounce-subtle">1995</div>
+                    <div className={`hidden md:flex absolute left-1/2 -translate-x-1/2 -top-2 timeline-year ${(/[-+]/.test('1995') && '1995'.length > 4) ? 'timeline-year--wide ' : ''}timeline-year--primary animate-bounce-subtle`}>1995</div>
 
                     {/* Card container */}
                     <div className="md:w-1/2 md:pl-10">
-                      {/* Mobile year badge */}
-                      <div className="md:hidden mb-3 inline-flex items-center justify-center timeline-year timeline-year--primary animate-bounce-subtle" style={{ width: '3rem', height: '3rem' }}>1995</div>
                       <div className="bg-white rounded-lg p-6 shadow-md border-2 border-primary-400 animate-slideInRight" style={{animationDelay:'0.15s'}}>
                         <h3 className="text-xl font-bold text-primary-700 mb-2">March 12, 1995 - A New Dawn of Friendship</h3>
                         <p className="text-gray-700 leading-relaxed mb-4">

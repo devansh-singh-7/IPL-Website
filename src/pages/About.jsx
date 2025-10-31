@@ -130,24 +130,63 @@ const About = () => {
               </div>
             </div>
 
-            {/* Timeline */}
+            {/* Timeline - Animated vertical with alternating cards */}
             <div>
-              <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">
+              <h3 className="text-3xl font-bold text-gray-800 mb-10 text-center">
                 {t('about.journey', 'Our Journey')}
               </h3>
-              <div className="space-y-6">
-                {milestones.map((milestone, index) => (
-                  <div key={index} className="flex gap-4 items-start">
-                    <div className="shrink-0 w-32">
-                      <div className="bg-primary-600 text-white font-bold py-3 px-4 rounded-lg text-center">
-                        {milestone.year}
+
+              <div className="relative max-w-4xl mx-auto">
+                {/* Center vertical line (md+) */}
+                <div className="timeline-line hidden md:block top-0 bottom-0 h-full">
+                  <div className="timeline-line-inner" />
+                </div>
+
+                <div className="space-y-10 md:space-y-12">
+                  {milestones.map((milestone, index) => {
+                    const isLeft = index % 2 === 0
+                    return (
+                      <div
+                        key={index}
+                        className={`relative md:flex md:items-center ${isLeft ? 'md:justify-start' : 'md:justify-end'}`}
+                      >
+                        {/* Year badge on center line (md+) */}
+                        <div className="hidden md:block absolute left-1/2 -translate-x-1/2 z-10">
+                          <div className={`timeline-year ${(/[\-+]/.test(milestone.year) && milestone.year.length > 4) ? 'timeline-year--wide ' : ''}timeline-year--primary animate-bounce-subtle shadow`}>
+                            {milestone.year}
+                          </div>
+                        </div>
+
+                        {/* Card */}
+                        <div
+                          className={`w-full md:w-[46%] ${
+                            isLeft
+                              ? 'md:pr-10 md:text-right md:ml-0'
+                              : 'md:pl-10 md:text-left md:mr-0'
+                          }`}
+                        >
+                          {/* Mobile year badge */}
+                          <div className="md:hidden mb-3">
+                            <span className="inline-flex items-center px-3 py-1 rounded-full bg-primary-600 text-white text-sm font-bold shadow">
+                              {milestone.year}
+                            </span>
+                          </div>
+
+                          <div
+                            className={`bg-white p-5 sm:p-6 rounded-xl shadow-md border border-gray-100 ${
+                              isLeft ? 'animate-slideInLeft' : 'animate-slideInRight'
+                            }`}
+                            style={{ animationDelay: `${index * 80}ms` }}
+                          >
+                            <p className="text-gray-700 leading-relaxed">
+                              {t(milestone.key, 'Milestone description')}
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="grow bg-gray-50 p-6 rounded-lg shadow-sm">
-                      <p className="text-gray-700 leading-relaxed">{t(milestone.key, 'Milestone description')}</p>
-                    </div>
-                  </div>
-                ))}
+                    )
+                  })}
+                </div>
               </div>
             </div>
           </div>

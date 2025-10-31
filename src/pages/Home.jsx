@@ -2,6 +2,11 @@ import { Link } from 'react-router-dom';
 import { Heart, Users, HandHeart, Calendar, Award, ArrowRight, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useTranslation } from '../contexts/TranslationContext'
 import { useState } from 'react';
+// Local carousel images (imported so Vite serves and bundles them correctly)
+import img1 from '../../Images/Screenshot 2025-10-31 190330.png'
+import img2 from '../../Images/Screenshot 2025-10-31 191033.png'
+import img3 from '../../Images/Screenshot 2025-10-31 191111.png'
+import img4 from '../../Images/TST_BNR01.png'
 
 const ImageCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -9,31 +14,9 @@ const ImageCarousel = () => {
   const [slideDirection, setSlideDirection] = useState('right');
 
   const images = [
-    {
-      src: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1200&h=600&fit=crop',
-      title: 'Community Service',
-      description: 'Serving communities with love and dedication'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1200&h=600&fit=crop',
-      title: 'Friendship Meet',
-      description: 'Building bonds that last a lifetime'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=1200&h=600&fit=crop',
-      title: 'Educational Support',
-      description: 'Empowering through education and learning'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1200&h=600&fit=crop',
-      title: 'Humanitarian Work',
-      description: 'Making a difference in people\'s lives'
-    },
-    {
-      src: 'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=1200&h=600&fit=crop',
-      title: 'Friends Day Celebration',
-      description: 'Celebrating the spirit of friendship'
-    }
+    { src: img1, title: 'IPL Community Moments', description: 'Snapshots from our events and outreach' },
+    { src: img2, title: 'Humanitarian Service', description: 'Medical, education, and welfare support efforts' },
+    { src: img3, title: 'Friendship Meet Highlights', description: 'Celebrating bonds that bring people together' },
   ];
 
   const goToPrevious = () => {
@@ -59,14 +42,6 @@ const ImageCarousel = () => {
   return (
     <section className="py-12 sm:py-16 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8 sm:mb-12 animate-fadeIn">
-          <h2 className="section-title">Our Memories</h2>
-          <div className="w-16 sm:w-20 h-1 bg-primary-600 mx-auto mb-3 sm:mb-4"></div>
-          <p className="section-subtitle px-4">
-            Moments of love, friendship, and service captured through the years
-          </p>
-        </div>
-
         {/* Carousel Container */}
         <div className="relative max-w-5xl mx-auto">
           {/* Image Container */}
@@ -246,6 +221,9 @@ const Home = () => {
         </div>
       </section>
 
+  {/* Image Gallery Carousel (moved above Stats) */}
+  <ImageCarousel />
+
       {/* Stats Section */}
       <section className="py-8 sm:py-12 bg-white">
         <div className="container mx-auto px-4">
@@ -390,9 +368,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      {/* Image Gallery Carousel */}
-      <ImageCarousel />
 
       {/* Mother Teresa Quote */}
       <section className="py-12 sm:py-16 bg-white">

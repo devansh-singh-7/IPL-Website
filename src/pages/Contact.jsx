@@ -218,26 +218,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Getting Here Section */}
-            <div className="mt-8 bg-white rounded-lg shadow-md p-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-4">
-                {t('contact.getting_here', 'Getting Here')}
-              </h3>
-              <div className="grid md:grid-cols-3 gap-6 text-sm text-gray-600">
-                <div>
-                  <p className="font-semibold text-gray-800 mb-2">🚇 {t('contact.by_train', 'By Train')}</p>
-                  <p>{t('contact.train_details', 'Chembur Station - 5 min walk')}</p>
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-800 mb-2">🚌 {t('contact.by_bus', 'By Bus')}</p>
-                  <p>{t('contact.bus_details', 'Multiple bus routes available')}</p>
-                </div>
-                <div>
-                  <p className="font-semibold text-gray-800 mb-2">🚗 {t('contact.by_car', 'By Car')}</p>
-                  <p>{t('contact.car_details', 'Parking available nearby')}</p>
-                </div>
-              </div>
-            </div>
+            {/* Getting Here Section removed temporarily as requested */}
           </div>
         </div>
       </section>
