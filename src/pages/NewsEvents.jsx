@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from '../contexts/TranslationContext'
 import { Calendar, MapPin, ArrowRight } from 'lucide-react'
+import { useSearchParams } from 'react-router-dom'
 
 const NewsEvents = () => {
   const { t } = useTranslation()
   const [currentPage, setCurrentPage] = useState(1)
+  const [searchParams] = useSearchParams()
+  const searchQuery = (searchParams.get('q') || '').trim()
 
   const newsItems = [
     {
@@ -229,6 +232,27 @@ const NewsEvents = () => {
     }
   ]
 
+  const filteredNews = useMemo(() => {
+    if (!searchQuery) return newsItems
+    const q = searchQuery.toLowerCase()
+    return newsItems.filter((item) => {
+      const title = (item.titleEn || '').toLowerCase()
+      const desc = (item.descriptionEn || '').toLowerCase()
+      return title.includes(q) || desc.includes(q)
+    })
+  }, [searchQuery, newsItems])
+
+  // Reset to first page on search change
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchQuery])
+
+  // Pagination setup
+  const itemsPerPage = 6
+  const totalPages = Math.max(1, Math.ceil(filteredNews.length / itemsPerPage))
+  const startIndex = (currentPage - 1) * itemsPerPage
+  const currentItems = filteredNews.slice(startIndex, startIndex + itemsPerPage)
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -246,7 +270,7 @@ const NewsEvents = () => {
       {/* News Grid */}
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {newsItems.map((item) => (
+          {currentItems.map((item) => (
             <div 
               key={item.id}
               className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 group"
@@ -284,16 +308,50 @@ const NewsEvents = () => {
           ))}
         </div>
 
-        {/* Pagination (placeholder) */}
+        {/* Pagination */}
         <div className="flex justify-center mt-12 gap-2">
-          <button className="px-4 py-2 bg-primary-600 text-white rounded-lg font-semibold hover:bg-primary-700 transition-colors">
-            1
+          {/* Previous */}
+          <button
+            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+            disabled={currentPage === 1}
+            className={`px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors ${
+              currentPage === 1
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-white text-gray-700 hover:bg-gray-100 shadow-sm'
+            }`}
+            aria-label="Previous page"
+          >
+            Prev
           </button>
-          <button className="px-4 py-2 bg-white text-gray-700 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-sm">
-            2
-          </button>
-          <button className="px-4 py-2 bg-white text-gray-700 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-sm">
-            3
+
+          {/* Page numbers */}
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              onClick={() => setCurrentPage(page)}
+              className={`px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors ${
+                page === currentPage
+                  ? 'bg-primary-600 text-white hover:bg-primary-700'
+                  : 'bg-white text-gray-700 hover:bg-gray-100 shadow-sm'
+              }`}
+              aria-current={page === currentPage ? 'page' : undefined}
+            >
+              {page}
+            </button>
+          ))}
+
+          {/* Next */}
+          <button
+            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+            disabled={currentPage === totalPages}
+            className={`px-3 sm:px-4 py-2 rounded-lg font-semibold transition-colors ${
+              currentPage === totalPages
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-white text-gray-700 hover:bg-gray-100 shadow-sm'
+            }`}
+            aria-label="Next page"
+          >
+            Next
           </button>
         </div>
       </div>

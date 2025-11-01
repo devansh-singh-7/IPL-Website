@@ -12,7 +12,9 @@ import FriendsDay from './pages/FriendsDay'
 import Contact from './pages/Contact'
 import OurTeam from './pages/OurTeam'
 
-const App = () => {
+type Props = Record<string, never>
+
+const App: React.FC<Props> = () => {
   return (
     <TranslationProvider>
       <Router>

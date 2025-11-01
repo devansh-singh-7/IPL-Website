@@ -1,19 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from '../contexts/TranslationContext'
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Heart,
-  Facebook,
-  Twitter,
-  Instagram,
-  Linkedin,
-  ArrowRight
-} from 'lucide-react'
+import { Mail, Phone, MapPin, Heart, Facebook, Twitter, Instagram, Linkedin, ArrowRight } from 'lucide-react'
 
-const Footer = () => {
+type Props = Record<string, never>
+
+const Footer: React.FC<Props> = () => {
   const { t } = useTranslation()
   const currentYear = new Date().getFullYear()
 
@@ -22,7 +14,6 @@ const Footer = () => {
       <div className="container mx-auto px-8">
         {/* GRID SECTION */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 py-16">
-          
           {/* LEFT COLUMN: QUICK LINKS */}
           <div className="flex flex-col items-center md:items-start text-center md:text-left">
             <h4 className="text-sm font-semibold text-white uppercase tracking-wider mb-4">
@@ -38,7 +29,7 @@ const Footer = () => {
                 { to: '/friends-day', label: t('nav.friendsDay', 'Friends Day') },
                 { to: '/news-events', label: t('nav.news', 'News & Events') },
                 { to: '/contact', label: t('nav.contact', 'Contact') },
-              ].map(link => (
+              ].map((link) => (
                 <li key={link.to}>
                   <Link
                     to={link.to}
@@ -61,17 +52,27 @@ const Footer = () => {
               {t('brand.name', "Indian Penpals' League")}
             </h3>
             <p className="text-sm text-gray-300 leading-relaxed">
-              {t('footer.about_text', 'Love, Friendship & Humanity — A confederation of friends united to serve communities.')}
+              {t(
+                'footer.about_text',
+                'Love, Friendship & Humanity — A confederation of friends united to serve communities.',
+              )}
             </p>
 
             <div className="flex gap-3 mt-5 justify-center">
-              {[Facebook, Twitter, Instagram, Linkedin].map((Icon, i) => (
+              {[
+                { Icon: Facebook, key: 'aria.facebook', fallback: 'Visit our Facebook page' },
+                { Icon: Twitter, key: 'aria.twitter', fallback: 'Visit our Twitter profile' },
+                { Icon: Instagram, key: 'aria.instagram', fallback: 'Visit our Instagram profile' },
+                { Icon: Linkedin, key: 'aria.linkedin', fallback: 'Visit our LinkedIn page' },
+              ].map(({ Icon, key, fallback }, i) => (
                 <a
                   key={i}
                   href="#"
+                  aria-label={t(key, fallback)}
+                  title={t(key, fallback)}
                   className="w-10 h-10 rounded-lg bg-slate-800 hover:bg-primary-600 text-gray-400 hover:text-white flex items-center justify-center transition-all duration-300"
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-4 h-4" aria-hidden="true" />
                 </a>
               ))}
             </div>
@@ -83,16 +84,23 @@ const Footer = () => {
               {t('footer.contact_us', 'Contact Us')}
             </h4>
             <div className="space-y-4 w-full max-w-xs md:max-w-sm lg:max-w-md ml-auto">
-              
               {/* ADDRESS */}
               <div className="flex items-center gap-2 justify-center md:justify-end">
                 <div className="w-9 h-9 bg-slate-800 rounded-lg flex items-center justify-center shrink-0">
                   <MapPin className="w-4.5 h-4.5 text-white" />
                 </div>
                 <p className="text-sm text-gray-300 leading-relaxed text-left md:text-right">
-                  {t('footer.address', `103, Starview Apts., Opp. Corporate Park,\nV.N.Purav Marg, Chembur,\nMumbai - 400071, India`).split('\n').map((line, i) => (
-                    <React.Fragment key={i}>{line}{i < 2 && <br />}</React.Fragment>
-                  ))}
+                  {t(
+                    'footer.address',
+                    `103, Starview Apts., Opp. Corporate Park,\nV.N.Purav Marg, Chembur,\nMumbai - 400071, India`,
+                  )
+                    .split('\n')
+                    .map((line, i) => (
+                      <React.Fragment key={i}>
+                        {line}
+                        {i < 2 && <br />}
+                      </React.Fragment>
+                    ))}
                 </p>
               </div>
 

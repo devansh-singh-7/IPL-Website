@@ -1,43 +1,42 @@
-import { Link } from 'react-router-dom';
-import { Heart, Users, HandHeart, Calendar, Award, ArrowRight, Mail, ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { Heart, Users, HandHeart, Calendar, Award, ArrowRight, Mail, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTranslation } from '../contexts/TranslationContext'
-import { useState } from 'react';
-// Local carousel images (imported so Vite serves and bundles them correctly)
+// Local carousel images
 import img1 from '../../Images/Screenshot 2025-10-31 190330.png'
 import img2 from '../../Images/Screenshot 2025-10-31 191033.png'
 import img3 from '../../Images/Screenshot 2025-10-31 191111.png'
-import img4 from '../../Images/TST_BNR01.png'
 
-const ImageCarousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [slideDirection, setSlideDirection] = useState('right');
+type Props = Record<string, never>
 
-  const images = [
+type ImageItem = { src: string; title: string; description: string }
+
+const ImageCarousel: React.FC<Props> = () => {
+  const [currentIndex, setCurrentIndex] = useState<number>(0)
+  const [isTransitioning, setIsTransitioning] = useState<boolean>(false)
+  const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right')
+
+  const images: ImageItem[] = [
     { src: img1, title: 'IPL Community Moments', description: 'Snapshots from our events and outreach' },
     { src: img2, title: 'Humanitarian Service', description: 'Medical, education, and welfare support efforts' },
     { src: img3, title: 'Friendship Meet Highlights', description: 'Celebrating bonds that bring people together' },
-  ];
+  ]
 
   const goToPrevious = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setSlideDirection('left');
-    setCurrentIndex((prevIndex) => 
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1
-    );
-    setTimeout(() => setIsTransitioning(false), 500);
-  };
+    if (isTransitioning) return
+    setIsTransitioning(true)
+    setSlideDirection('left')
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1))
+    setTimeout(() => setIsTransitioning(false), 500)
+  }
 
   const goToNext = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setSlideDirection('right');
-    setCurrentIndex((prevIndex) => 
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1
-    );
-    setTimeout(() => setIsTransitioning(false), 500);
-  };
+    if (isTransitioning) return
+    setIsTransitioning(true)
+    setSlideDirection('right')
+    setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1))
+    setTimeout(() => setIsTransitioning(false), 500)
+  }
 
   return (
     <section className="py-12 sm:py-16 bg-gray-50">
@@ -47,37 +46,24 @@ const ImageCarousel = () => {
           {/* Image Container */}
           <div className="relative h-64 sm:h-96 md:h-[500px] rounded-xl overflow-hidden shadow-2xl">
             {/* Background Gradient Overlay */}
-            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent z-10"></div>
-            
+            <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent z-10" />
+
             {/* Image with slide animation */}
-            <div 
+            <div
               className={`w-full h-full transition-all duration-500 ease-in-out ${
-                slideDirection === 'right' 
-                  ? 'animate-slideInRight' 
-                  : 'animate-slideInLeft'
+                slideDirection === 'right' ? 'animate-slideInRight' : 'animate-slideInLeft'
               }`}
               key={currentIndex}
             >
-              <img 
-                src={images[currentIndex].src}
-                alt={images[currentIndex].title}
-                className="w-full h-full object-cover animate-zoomIn"
-              />
+              <img src={images[currentIndex].src} alt={images[currentIndex].title} className="w-full h-full object-cover animate-zoomIn" />
             </div>
-            
+
             {/* Text Overlay with fade-up animation */}
             <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-12 z-20 text-white">
-              <h3 
-                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3 animate-fadeInUp"
-                key={`title-${currentIndex}`}
-              >
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 sm:mb-3 animate-fadeInUp" key={`title-${currentIndex}`}>
                 {images[currentIndex].title}
               </h3>
-              <p 
-                className="text-sm sm:text-base md:text-lg text-gray-200 animate-fadeInUp" 
-                style={{ animationDelay: '0.1s' }}
-                key={`desc-${currentIndex}`}
-              >
+              <p className="text-sm sm:text-base md:text-lg text-gray-200 animate-fadeInUp" style={{ animationDelay: '0.1s' }} key={`desc-${currentIndex}`}>
                 {images[currentIndex].description}
               </p>
             </div>
@@ -92,7 +78,7 @@ const ImageCarousel = () => {
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 group-hover:animate-pulse" />
           </button>
-          
+
           <button
             onClick={goToNext}
             disabled={isTransitioning}
@@ -108,77 +94,47 @@ const ImageCarousel = () => {
               <button
                 key={index}
                 onClick={() => {
-                  if (isTransitioning || index === currentIndex) return;
-                  setIsTransitioning(true);
-                  setSlideDirection(index > currentIndex ? 'right' : 'left');
-                  setCurrentIndex(index);
-                  setTimeout(() => setIsTransitioning(false), 500);
+                  if (isTransitioning || index === currentIndex) return
+                  setIsTransitioning(true)
+                  setSlideDirection(index > currentIndex ? 'right' : 'left')
+                  setCurrentIndex(index)
+                  setTimeout(() => setIsTransitioning(false), 500)
                 }}
                 disabled={isTransitioning}
                 className={`rounded-full transition-all duration-300 hover:scale-125 active:scale-95 ${
-                  index === currentIndex 
-                    ? 'bg-primary-600 w-6 sm:w-8 h-2 sm:h-3 animate-pulse' 
-                    : 'bg-gray-300 hover:bg-primary-400 w-2 h-2 sm:w-3 sm:h-3'
+                  index === currentIndex ? 'bg-primary-600 w-6 sm:w-8 h-2 sm:h-3 animate-pulse' : 'bg-gray-300 hover:bg-primary-400 w-2 h-2 sm:w-3 sm:h-3'
                 }`}
                 aria-label={`Go to image ${index + 1}`}
               />
             ))}
           </div>
-
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-const Home = () => {
+const Home: React.FC<Props> = () => {
   const { t } = useTranslation()
-  
+
   const stats = [
     { icon: Users, value: '198,115+', labelKey: 'home.stats.visitors' },
     { icon: Heart, value: '40+', labelKey: 'home.stats.activities' },
     { icon: Calendar, value: '30+', labelKey: 'home.stats.years' },
     { icon: Award, value: '80G', labelKey: 'home.stats.certificate' },
-  ];
+  ] as const
 
   const features = [
-    {
-      icon: HandHeart,
-      link: '/humanitarian-services',
-      titleKey: 'home.feature1_title',
-      descKey: 'home.feature1_desc',
-    },
-    {
-      icon: Users,
-      link: '/friendship-meet',
-      titleKey: 'home.feature2_title',
-      descKey: 'home.feature2_desc',
-    },
-    {
-      icon: Calendar,
-      link: '/friends-day',
-      titleKey: 'home.feature3_title',
-      descKey: 'home.feature3_desc',
-    },
-  ];
+    { icon: HandHeart, link: '/humanitarian-services', titleKey: 'home.feature1_title', descKey: 'home.feature1_desc' },
+    { icon: Users, link: '/friendship-meet', titleKey: 'home.feature2_title', descKey: 'home.feature2_desc' },
+    { icon: Calendar, link: '/friends-day', titleKey: 'home.feature3_title', descKey: 'home.feature3_desc' },
+  ] as const
 
   const recentActivities = [
-    {
-      dateKey: 'home.activity1_date',
-      titleKey: 'home.activity1_title',
-      descKey: 'home.activity1_desc',
-    },
-    {
-      dateKey: 'home.activity2_date',
-      titleKey: 'home.activity2_title',
-      descKey: 'home.activity2_desc',
-    },
-    {
-      dateKey: 'home.activity3_date',
-      titleKey: 'home.activity3_title',
-      descKey: 'home.activity3_desc',
-    },
-  ];
+    { dateKey: 'home.activity1_date', titleKey: 'home.activity1_title', descKey: 'home.activity1_desc' },
+    { dateKey: 'home.activity2_date', titleKey: 'home.activity2_title', descKey: 'home.activity2_desc' },
+    { dateKey: 'home.activity3_date', titleKey: 'home.activity3_title', descKey: 'home.activity3_desc' },
+  ] as const
 
   return (
     <div>
@@ -187,7 +143,7 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-primary-50 px-4 sm:px-6 py-2 rounded-full mb-4 sm:mb-6 animate-fadeIn">
-              <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 animate-pulse-slow" />
+              <Heart className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500 animate-pulse-slow" />
               <span className="text-xs sm:text-sm font-semibold text-primary-700">{t('home.established', 'Established March 12, 1995')}</span>
             </div>
 
@@ -202,37 +158,37 @@ const Home = () => {
                 {t('nav.about', 'About')}
                 <ArrowRight className="w-5 h-5" />
               </Link>
-              <Link
-                to="/contact"
-                className="btn-outline-primary px-6 py-3 inline-flex items-center gap-2 justify-center"
-              >
+              <Link to="/contact" className="btn-outline-primary px-6 py-3 inline-flex items-center gap-2 justify-center">
                 <Mail className="w-5 h-5" />
                 {t('nav.contact', 'Contact')}
               </Link>
             </div>
           </div>
         </div>
-        
+
         {/* Decorative Wave */}
         <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
           <svg className="relative block w-full h-12" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="fill-gray-50"></path>
+            <path
+              d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"
+              className="fill-gray-50"
+            />
           </svg>
         </div>
       </section>
 
-  {/* Image Gallery Carousel (moved above Stats) */}
-  <ImageCarousel />
+      {/* Image Gallery Carousel (moved above Stats) */}
+      <ImageCarousel />
 
       {/* Stats Section */}
       <section className="py-8 sm:py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
             {stats.map((stat, index) => {
-              const Icon = stat.icon;
+              const Icon = stat.icon
               return (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="text-center p-4 sm:p-6 rounded-xl bg-white border border-gray-200 shadow-sm hover:shadow-md transition-shadow hover-lift animate-scaleIn"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
@@ -240,7 +196,7 @@ const Home = () => {
                   <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-700 mb-1">{stat.value}</div>
                   <div className="text-xs sm:text-sm text-gray-600 font-medium">{t(stat.labelKey)}</div>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
@@ -252,9 +208,9 @@ const Home = () => {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8 sm:mb-12">
               <h2 className="section-title">{t('home.welcome_title')}</h2>
-              <div className="w-16 sm:w-20 h-1 bg-primary-600 mx-auto mb-4 sm:mb-6"></div>
+              <div className="w-16 sm:w-20 h-1 bg-primary-600 mx-auto mb-4 sm:mb-6" />
             </div>
-            
+
             <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl p-6 sm:p-8 md:p-12 mb-6 sm:mb-8">
               <div className="prose max-w-none">
                 <p className="text-base sm:text-lg leading-relaxed text-gray-700 mb-4 sm:mb-6">
@@ -262,23 +218,15 @@ const Home = () => {
                   {t('home.founder_quote')}
                   <span className="text-xl sm:text-2xl text-primary-600 font-bold">"</span>
                 </p>
-                <p className="text-right text-sm sm:text-base text-gray-600 italic mb-6 sm:mb-8">
-                  - {t('home.founder_name')}
-                </p>
-                
-                <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-3 sm:mb-4">
-                  {t('home.about_intro')}
-                </p>
-                
-                <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-3 sm:mb-4">
-                  {t('home.about_registration')} <strong>#F23778</strong>.
-                </p>
-                
-                <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
-                  {t('home.about_80g')}
-                </p>
+                <p className="text-right text-sm sm:text-base text-gray-600 italic mb-6 sm:mb-8">- {t('home.founder_name')}</p>
+
+                <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-3 sm:mb-4">{t('home.about_intro')}</p>
+
+                <p className="text-sm sm:text-base text-gray-700 leading-relaxed mb-3 sm:mb-4">{t('home.about_registration')} <strong>#F23778</strong>.</p>
+
+                <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{t('home.about_80g')}</p>
               </div>
-              
+
               <div className="mt-6 sm:mt-8 text-center">
                 <Link to="/about" className="btn-primary inline-flex items-center gap-2">
                   {t('home.read_more')}
@@ -295,37 +243,28 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 sm:mb-12 animate-fadeIn">
             <h2 className="section-title">{t('home.our_activities')}</h2>
-            <div className="w-16 sm:w-20 h-1 bg-primary-600 mx-auto mb-3 sm:mb-4"></div>
-            <p className="section-subtitle max-w-2xl mx-auto px-4">
-              {t('home.activities_subtitle')}
-            </p>
+            <div className="w-16 sm:w-20 h-1 bg-primary-600 mx-auto mb-3 sm:mb-4" />
+            <p className="section-subtitle max-w-2xl mx-auto px-4">{t('home.activities_subtitle')}</p>
           </div>
-          
+
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
             {features.map((feature, index) => {
-              const Icon = feature.icon;
+              const Icon = feature.icon
               return (
-                <div 
-                  key={index} 
-                  className="card group hover-lift animate-fadeIn"
-                  style={{ animationDelay: `${index * 0.2}s` }}
-                >
+                <div key={index} className="card group hover-lift animate-fadeIn" style={{ animationDelay: `${index * 0.2}s` }}>
                   <div className="p-6 sm:p-8">
                     <div className="w-14 h-14 sm:w-16 sm:h-16 bg-linear-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 animate-float">
                       <Icon className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                     </div>
                     <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-3 sm:mb-4">{t(feature.titleKey)}</h3>
                     <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-4 sm:mb-6">{t(feature.descKey)}</p>
-                    <Link 
-                      to={feature.link}
-                      className="text-primary-600 font-semibold inline-flex items-center gap-2 hover:gap-3 transition-all text-sm sm:text-base"
-                    >
+                    <Link to={feature.link} className="text-primary-600 font-semibold inline-flex items-center gap-2 hover:gap-3 transition-all text-sm sm:text-base">
                       {t('home.learn_more')}
                       <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                     </Link>
                   </div>
                 </div>
-              );
+              )
             })}
           </div>
         </div>
@@ -336,19 +275,13 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-8 sm:mb-12 animate-fadeIn">
             <h2 className="section-title">{t('home.recent_activities')}</h2>
-            <div className="w-16 sm:w-20 h-1 bg-primary-600 mx-auto mb-3 sm:mb-4"></div>
-            <p className="section-subtitle px-4">
-              {t('home.recent_subtitle')}
-            </p>
+            <div className="w-16 sm:w-20 h-1 bg-primary-600 mx-auto mb-3 sm:mb-4" />
+            <p className="section-subtitle px-4">{t('home.recent_subtitle')}</p>
           </div>
-          
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
             {recentActivities.map((activity, index) => (
-              <div 
-                key={index} 
-                className="card group cursor-pointer hover-lift animate-slideInLeft"
-                style={{ animationDelay: `${index * 0.15}s` }}
-              >
+              <div key={index} className="card group cursor-pointer hover-lift animate-slideInLeft" style={{ animationDelay: `${index * 0.15}s` }}>
                 <div className="p-5 sm:p-6">
                   <div className="text-xs sm:text-sm font-semibold text-primary-600 mb-2 sm:mb-3">{t(activity.dateKey)}</div>
                   <h3 className="text-base sm:text-lg font-bold text-red-800 mb-2 group-hover:text-primary-600 transition-colors">
@@ -359,7 +292,7 @@ const Home = () => {
               </div>
             ))}
           </div>
-          
+
           <div className="text-center animate-scaleIn" style={{ animationDelay: '0.6s' }}>
             <Link to="/humanitarian-services" className="btn-primary inline-flex items-center gap-2 hover-scale">
               {t('home.view_all')}
@@ -374,7 +307,7 @@ const Home = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center animate-fadeIn">
             <div className="mb-6 animate-float">
-              <Heart className="w-12 h-12 sm:w-16 sm:h-16 mx-auto text-yellow-400" />
+              <Heart className="w-12 h-12 sm:w-16 sm:h-16 mx-auto text-amber-500" />
             </div>
             <blockquote className="text-xl sm:text-2xl md:text-3xl font-light italic leading-relaxed mb-6 animate-slideInLeft text-gray-800" style={{ animationDelay: '0.2s' }}>
               "{t('home.mother_teresa_quote')}"
@@ -384,7 +317,7 @@ const Home = () => {
         </div>
       </section>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

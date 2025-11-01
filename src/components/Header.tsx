@@ -3,57 +3,67 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from '../contexts/TranslationContext'
 import { Menu, X, Search, ChevronDown } from 'lucide-react'
 
-const Header = () => {
+type Props = Record<string, never>
+type NavLink = {
+  path: string
+  label: string
+  hasDropdown?: boolean
+  dropdownItems?: { path: string; label: string }[]
+}
+
+const Header: React.FC<Props> = () => {
   const { lang, toggleLanguage, t } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [newsDropdownOpen, setNewsDropdownOpen] = useState(false)
   const [query, setQuery] = useState('')
-  const desktopSearchRef = useRef(null)
+  const desktopSearchRef = useRef<HTMLInputElement | null>(null)
 
-  const navLinks = [
+  const navLinks: NavLink[] = [
     { path: '/', label: 'nav.home' },
     { path: '/about', label: 'nav.about' },
     { path: '/our-team', label: 'nav.team' },
     { path: '/humanitarian-services', label: 'nav.humanitarian' },
-    { 
-      path: '/news-events', 
+    {
+      path: '/news-events',
       label: 'nav.news',
       hasDropdown: true,
       dropdownItems: [
         { path: '/news-events', label: 'IPL News' },
         { path: '/friendship-meet', label: 'nav.meet' },
         { path: '/friends-day', label: 'nav.friendsDay' },
-      ]
+      ],
     },
     { path: '/contact', label: 'nav.contact' },
-  ]
+  ] as const
 
-  const isActive = (path) => location.pathname === path
-  
+  const isActive = (path: string) => location.pathname === path
+
   const isNewsActive = () => {
-    return location.pathname === '/news-events' || 
-           location.pathname === '/friendship-meet' || 
-           location.pathname === '/friends-day'
+    return (
+      location.pathname === '/news-events' ||
+      location.pathname === '/friendship-meet' ||
+      location.pathname === '/friends-day'
+    )
   }
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-50">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2 md:gap-4 flex-1 md:flex-initial">
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="text-primary-700 font-extrabold text-lg sm:text-xl md:text-2xl leading-none hover:text-primary-800 transition-colors duration-200 truncate"
           >
             {t('home.hero_title', "Indian Penpals' League")}
           </Link>
-          
+
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1 ml-8">
-            {navLinks.map((link, index) => (
+            {navLinks.map((link, index) =>
               link.hasDropdown ? (
-                <div 
+                <div
                   key={link.path}
                   className="relative"
                   onMouseEnter={() => setNewsDropdownOpen(true)}
@@ -62,46 +72,44 @@ const Header = () => {
                   <button
                     className={`
                       nav-link relative px-3 py-2 text-sm font-medium leading-none rounded-lg flex items-center gap-1
-                      ${isNewsActive()
-                        ? 'text-primary-700'
-                        : 'text-gray-700'}
+                      ${isNewsActive() ? 'text-primary-700' : 'text-gray-700'}
                       group
                       hover:scale-105 hover:-translate-y-0.5
                       active:scale-95
                       transition-all duration-200
                     `}
                   >
-                    <span className="relative z-10">{t(link.label)}</span>
-                    <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${newsDropdownOpen ? 'rotate-180' : ''}`} />
-                    
+                    <span className="relative z-10">{t(link.label as string)}</span>
+                    <ChevronDown
+                      className={`w-3 h-3 transition-transform duration-200 ${
+                        newsDropdownOpen ? 'rotate-180' : ''
+                      }`}
+                    />
+
                     {/* Animated underline for active state */}
-                    <span 
+                    <span
                       className={`
                         absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-linear-to-r from-primary-500 to-primary-600 transition-all duration-300 rounded-full
-                        ${isNewsActive() 
-                          ? 'w-3/4' 
-                          : 'w-0'}
+                        ${isNewsActive() ? 'w-3/4' : 'w-0'}
                       `}
                     />
                   </button>
 
                   {/* Dropdown Menu */}
-                  <div 
+                  <div
                     className={`
                       absolute top-full left-0 mt-1 w-48 bg-gray-800 rounded-lg shadow-xl overflow-hidden
                       transition-all duration-200 origin-top
                       ${newsDropdownOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}
                     `}
                   >
-                    {link.dropdownItems.map((item) => (
+                    {link.dropdownItems?.map((item) => (
                       <Link
                         key={item.path}
                         to={item.path}
                         className={`
                           block px-4 py-3 text-sm font-medium
-                          ${isActive(item.path)
-                            ? 'bg-primary-600 text-white'
-                            : 'text-white hover:bg-gray-700'}
+                          ${isActive(item.path) ? 'bg-primary-600 text-white' : 'text-white hover:bg-gray-700'}
                           transition-colors duration-150
                         `}
                         onClick={() => setNewsDropdownOpen(false)}
@@ -117,28 +125,24 @@ const Header = () => {
                   to={link.path}
                   className={`
                     nav-link relative px-3 py-2 text-sm font-medium leading-none rounded-lg
-                    ${isActive(link.path)
-                      ? 'text-primary-700'
-                      : 'text-gray-700'}
+                    ${isActive(link.path) ? 'text-primary-700' : 'text-gray-700'}
                     group
                     hover:scale-105 hover:-translate-y-0.5
                     active:scale-95
                   `}
                 >
-                  <span className="relative z-10">{t(link.label)}</span>
-                  
+                  <span className="relative z-10">{t(link.label as string)}</span>
+
                   {/* Animated underline for active state */}
-                  <span 
+                  <span
                     className={`
                       absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 bg-linear-to-r from-primary-500 to-primary-600 transition-all duration-300 rounded-full
-                      ${isActive(link.path) 
-                        ? 'w-3/4' 
-                        : 'w-0'}
+                      ${isActive(link.path) ? 'w-3/4' : 'w-0'}
                     `}
                   />
                 </Link>
-              )
-            ))}
+              ),
+            )}
           </nav>
         </div>
 
@@ -173,7 +177,7 @@ const Header = () => {
             onClick={toggleLanguage}
             className="
               lang-toggle relative overflow-hidden
-              px-3 sm:px-4 py-2 rounded-lg border-2 border-primary-600 bg-white text-primary-600
+              px-3 sm:px-4 py-2 rounded-lg border-2 border-primary-700 bg-white text-primary-700
               font-bold text-xs sm:text-sm shadow-sm
               hover:bg-primary-700 hover:text-white hover:shadow-lg hover:border-primary-800
               active:scale-95
@@ -190,7 +194,7 @@ const Header = () => {
           </button>
 
           {/* Mobile menu toggle */}
-          <button 
+          <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 transition-colors"
             aria-label="Toggle mobile menu"
@@ -201,7 +205,7 @@ const Header = () => {
       </div>
 
       {/* Mobile Navigation Menu */}
-      <div 
+      <div
         className={`
           lg:hidden overflow-hidden transition-all duration-300 ease-in-out
           ${mobileMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}
@@ -233,13 +237,13 @@ const Header = () => {
           </form>
         </div>
         <nav className="container mx-auto px-4 pb-4 space-y-1">
-          {navLinks.map((link, index) => (
+          {navLinks.map((link, index) =>
             link.hasDropdown ? (
               <div key={link.path} className="space-y-1">
                 <div className="px-4 py-2 text-xs font-bold text-gray-500 uppercase tracking-wider">
-                  {t(link.label)}
+                  {t(link.label as string)}
                 </div>
-                {link.dropdownItems.map((item) => (
+                {link.dropdownItems?.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
@@ -270,15 +274,15 @@ const Header = () => {
                     : 'bg-gray-50 text-gray-700 hover:bg-primary-50 hover:text-primary-600 hover:translate-x-2'
                   }
                 `}
-                style={{ 
+                style={{
                   animationDelay: `${index * 50}ms`,
-                  animation: mobileMenuOpen ? 'slideInLeft 0.3s ease-out forwards' : 'none'
+                  animation: mobileMenuOpen ? 'slideInLeft 0.3s ease-out forwards' : 'none',
                 }}
               >
-                {t(link.label)}
+                {t(link.label as string)}
               </Link>
-            )
-          ))}
+            ),
+          )}
         </nav>
       </div>
     </header>

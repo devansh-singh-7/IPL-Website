@@ -16,12 +16,6 @@ const translations = {
       lang_ta: 'த',
     },
     brand: {
-      name: 'இந்தியப் பேனாநண்பர் பேரவை',
-    },
-    brand: {
-      name: 'इंडियन पेनपाल्स लीग',
-    },
-    brand: {
       name: "Indian Penpals' League",
     },
     home: {
@@ -213,6 +207,9 @@ const translations = {
       lang_hi: 'हिं',
       lang_ta: 'த',
     },
+    brand: {
+      name: 'इंडियन पेनपाल्स लीग',
+    },
     home: {
       hero_title: 'इंडियन पेनपाल्स लीग',
       hero_title_native: 'इंडियन पेनपाल्स लीग',
@@ -401,6 +398,9 @@ const translations = {
       lang_en: 'EN',
       lang_hi: 'हिं',
       lang_ta: 'த',
+    },
+    brand: {
+      name: 'இந்தியப் பேனாநண்பர் பேரவை',
     },
     home: {
       hero_title: 'இந்தியப் பேனாநண்பர் பேரவை',

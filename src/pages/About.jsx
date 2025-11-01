@@ -197,7 +197,7 @@ const About = () => {
   <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
-            <Heart className="w-12 h-12 mx-auto mb-6 text-yellow-300" />
+            <Heart className="w-12 h-12 mx-auto mb-6 text-amber-500" />
             <blockquote className="text-2xl font-light italic mb-4">
               "{t('home.mother_teresa_quote')}"
             </blockquote>

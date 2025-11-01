@@ -139,7 +139,7 @@ const HumanitarianServices = () => {
       {/* CTA Section */}
   <section className="py-16 bg-white">
         <div className="container mx-auto px-4 text-center">
-          <Heart className="w-12 h-12 mx-auto mb-6 text-yellow-300" />
+          <Heart className="w-12 h-12 mx-auto mb-6 text-amber-500" />
           <h3 className="text-3xl font-bold mb-4">
             {t('humanitarian.donate_title', 'Support Our Mission')}
           </h3>

@@ -39,10 +39,10 @@ const FriendsDay = () => {
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
               {t('nav.friendsDay', 'Friends Day')}
             </h1>
-            <p className="text-xl md:text-2xl mb-4 text-primary-100">
+            <p className="text-xl md:text-2xl mb-4 text-white">
               {t('friendsday.hero_tamil', 'நண்பர்கள் தினம் - March 12')}
             </p>
-            <p className="text-lg text-primary-100">
+            <p className="text-lg text-white">
               {t('friendsday.hero_sub', 'Turning Tragedy into Triumph Through Friendship')}
             </p>
           </div>
@@ -54,7 +54,7 @@ const FriendsDay = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <Heart className="w-12 h-12 mx-auto mb-6 text-yellow-400" />
+              <Heart className="w-12 h-12 mx-auto mb-6 text-amber-500" />
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
                 The day we celebrate as <strong>Friends Day</strong> carries a profound historical significance that transformed a moment of tragedy into a beacon of hope and humanity.
               </p>
@@ -299,7 +299,7 @@ const FriendsDay = () => {
       {/* CTA Section */}
   <section className="py-16 bg-white">
         <div className="container mx-auto px-4 text-center">
-          <Heart className="w-12 h-12 mx-auto mb-6 text-yellow-300" />
+          <Heart className="w-12 h-12 mx-auto mb-6 text-amber-500" />
           <h3 className="text-3xl font-bold mb-4">
             {t('friendsday.join_title', 'Be Part of Friends Day 2026')}
           </h3>

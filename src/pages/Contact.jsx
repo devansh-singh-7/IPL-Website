@@ -1,9 +1,38 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from '../contexts/TranslationContext'
 import { Mail, Phone, MapPin, Clock } from 'lucide-react'
 
 const Contact = () => {
   const { t } = useTranslation()
+
+  // Controlled form state
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [subject, setSubject] = useState('')
+  const [message, setMessage] = useState('')
+  const [errors, setErrors] = useState({ name: '', email: '', subject: '', message: '' })
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // Simple accessibility-focused validation
+    const newErrors = { name: '', email: '', subject: '', message: '' }
+    if (!name.trim()) newErrors.name = t('contact.error_name_required', 'Please enter your name')
+    if (!email.trim()) {
+      newErrors.email = t('contact.error_email_required', 'Please enter your email')
+    } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+      newErrors.email = t('contact.error_email_invalid', 'Please enter a valid email address')
+    }
+    if (!subject.trim()) newErrors.subject = t('contact.error_subject_required', 'Please enter a subject')
+    if (!message.trim()) newErrors.message = t('contact.error_message_required', 'Please enter a message')
+
+    setErrors(newErrors)
+
+    const hasError = Object.values(newErrors).some(Boolean)
+    if (hasError) return
+
+    // In a real app, send this to an API endpoint
+    console.log({ name, email, subject, message })
+  }
 
   return (
     <div>
@@ -97,7 +126,7 @@ const Contact = () => {
                   {t('contact.send_message', 'Send Us a Message')}
                 </h2>
 
-                <form className="space-y-6">
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   <div>
                     <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
                       {t('contact.form_name', 'Your Name')}
@@ -107,7 +136,16 @@ const Contact = () => {
                       id="name"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
                       placeholder={t('contact.form_name_placeholder', 'Enter your name')}
+                      value={name}
+                      onChange={(e) => { setName(e.target.value); if (errors.name) setErrors({ ...errors, name: '' }) }}
+                      aria-required="true"
+                      aria-invalid={errors.name ? 'true' : 'false'}
+                      aria-describedby={errors.name ? 'name-error' : undefined}
+                      required
                     />
+                    {errors.name && (
+                      <p id="name-error" className="mt-2 text-sm text-red-600">{errors.name}</p>
+                    )}
                   </div>
 
                   <div>
@@ -119,7 +157,16 @@ const Contact = () => {
                       id="email"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
                       placeholder={t('contact.form_email_placeholder', 'Enter your email')}
+                      value={email}
+                      onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors({ ...errors, email: '' }) }}
+                      aria-required="true"
+                      aria-invalid={errors.email ? 'true' : 'false'}
+                      aria-describedby={errors.email ? 'email-error' : undefined}
+                      required
                     />
+                    {errors.email && (
+                      <p id="email-error" className="mt-2 text-sm text-red-600">{errors.email}</p>
+                    )}
                   </div>
 
                   <div>
@@ -131,7 +178,16 @@ const Contact = () => {
                       id="subject"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
                       placeholder={t('contact.form_subject_placeholder', 'Enter subject')}
+                      value={subject}
+                      onChange={(e) => { setSubject(e.target.value); if (errors.subject) setErrors({ ...errors, subject: '' }) }}
+                      aria-required="true"
+                      aria-invalid={errors.subject ? 'true' : 'false'}
+                      aria-describedby={errors.subject ? 'subject-error' : undefined}
+                      required
                     />
+                    {errors.subject && (
+                      <p id="subject-error" className="mt-2 text-sm text-red-600">{errors.subject}</p>
+                    )}
                   </div>
 
                   <div>
@@ -143,7 +199,16 @@ const Contact = () => {
                       rows="5"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-600"
                       placeholder={t('contact.form_message_placeholder', 'Enter your message')}
+                      value={message}
+                      onChange={(e) => { setMessage(e.target.value); if (errors.message) setErrors({ ...errors, message: '' }) }}
+                      aria-required="true"
+                      aria-invalid={errors.message ? 'true' : 'false'}
+                      aria-describedby={errors.message ? 'message-error' : undefined}
+                      required
                     ></textarea>
+                    {errors.message && (
+                      <p id="message-error" className="mt-2 text-sm text-red-600">{errors.message}</p>
+                    )}
                   </div>
 
                   <button
